@@ -2,6 +2,27 @@
 
 export const router = {};
 
+let content = document.querySelector('body');
+let title = document.querySelector('h1');
+
+document.querySelector('img').addEventListener("click", () => {
+  content.classList.add('settings');
+  title.innerHTML="Settings";
+});
+
+title.addEventListener("click", () => {
+  content.classList = [];
+  title.innerHTML="Journal Entries";
+});
+
+setTimeout(()=> { 
+  document.querySelectorAll('journal-entry').forEach((entry, index) => {
+    entry.addEventListener('click', ()=>{
+      content.classList.add('single-entry');
+      title.innerHTML="Entry "+(index + 1);
+    });
+  });
+}, 1000);
 /**
  * Changes the "page" (state) that your SPA app is currently set to
  */
