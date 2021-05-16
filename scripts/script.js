@@ -4,6 +4,17 @@ import { router } from './router.js'; // Router imported so you can use it to ma
 const setState = router.setState;
 
 // Make sure you register your service worker here too
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./sw.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
 
 // Define variables for use later in the script
 let content   = document.querySelector('body');
@@ -66,13 +77,14 @@ setTimeout(()=> {
       closeEntry();
     }
   })
-}, 100);
+}, 500);
 
 /**
  * Creates a new journal entry element and loads all of the appropriate content into it. Also adjusts the styling of the page 
  */
 function openEntry(index) {
   let journalEntry = journalEntries[index];
+  content.classList.remove('settings');
   content.classList.add('single-entry');
   title.innerHTML="Entry "+(1+index);
   entryPage.entry = journalEntry.entry;
