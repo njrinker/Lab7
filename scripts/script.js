@@ -94,6 +94,7 @@ function openEntry(index) {
  * Changes the styling of the page to the settings page
  */
 function openSettings() {
+  closeEntry();
   content.classList.add('settings');
   title.innerHTML="Settings";
 }
